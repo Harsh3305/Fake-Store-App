@@ -1,6 +1,7 @@
-import 'package:fake_store/pages/home.dart';
+import 'package:fake_store/home.dart';
 import 'package:fake_store/pages/splash_screen.dart';
 import 'package:fake_store/widgets/my_theme.dart';
+import 'package:fake_store/widgets/search_bar.dart';
 import 'package:fake_store/widgets/splash_screen_component.dart';
 import 'package:flutter/material.dart';
 

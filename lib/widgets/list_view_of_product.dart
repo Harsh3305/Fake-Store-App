@@ -4,54 +4,53 @@ import 'package:fake_store/widgets/product_display.dart';
 import 'package:flutter/material.dart';
 
 class ListViewOfProducts extends StatefulWidget {
-  const ListViewOfProducts({Key? key}) : super(key: key);
-
+  const ListViewOfProducts({Key? key, required this.productList})
+      : super(key: key);
+  final List<Product> productList;
   @override
-  State<ListViewOfProducts> createState() => _ListViewOfProductsState();
+  State<ListViewOfProducts> createState() =>
+      _ListViewOfProductsState(productList);
 }
 
 class _ListViewOfProductsState extends State<ListViewOfProducts> {
-  List<Product> productList = [];
-  bool isDataLoaded = false;
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      FetchData.fetchAllProducts().then((value) => productList.addAll(value));
-      isDataLoaded = true;
-    });
-  }
+  final List<Product> productList;
+  Widget visibleWidget = const CircularProgressIndicator();
+
+  _ListViewOfProductsState(this.productList);
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   var futureList = FetchData.fetchAllProducts();
+  //   futureList.whenComplete(() {
+  //     setState(() {
+  //       futureList.then((value) => productList.addAll(value));
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var listView = ListView.builder(
-      shrinkWrap: true,
-      // scrollDirection: Axis.vertical,
-
-      itemBuilder: (context, index) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(15),
-                child: ProductDisplay(
-                    id: productList[index].id,
-                    title: productList[index].title,
-                    price: productList[index].price,
-                    description: productList[index].description,
-                    category: productList[index].category,
-                    image: productList[index].image),
-              ),
-            ],
+    if (productList.isNotEmpty) {
+      setState(() {
+        visibleWidget = GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
           ),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return ProductDisplay(
+              product: productList[index],
+            );
+          },
+          itemCount: productList.length,
         );
-      },
-      itemCount: productList.length,
-    );
-    if (isDataLoaded) {
-      return listView;
+      });
     } else {
-      return const CircularProgressIndicator();
+      setState(() {
+        visibleWidget = const CircularProgressIndicator();
+      });
     }
+    return visibleWidget;
   }
 }
