@@ -2,6 +2,7 @@ import 'package:fake_store/models/product.dart';
 import 'package:fake_store/widgets/load_image.dart';
 import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as developer;
 
 class ProductPage extends StatelessWidget {
   const ProductPage({Key? key, required this.product}) : super(key: key);
@@ -18,6 +19,7 @@ class ProductPage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
@@ -37,6 +39,29 @@ class ProductPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(title, style: const TextStyle(fontSize: 20)),
+            ),
+            Container(
+              color: MyTheme.primaryLight,
+              child: TextButton(
+                  onPressed: () {
+                    developer.log("Add to cart, product = $id");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.shopping_basket,
+                        color: Colors.white,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                      ),
+                      Text(
+                        "Add To Cart",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
