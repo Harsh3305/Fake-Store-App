@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'my_theme.dart';
+
 class LoadImageFromNetwork extends StatelessWidget {
   const LoadImageFromNetwork(
       {Key? key,
@@ -20,11 +22,11 @@ class LoadImageFromNetwork extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return const CircularProgressIndicator();
+            return CircularProgressIndicator(color: MyTheme.primaryLight);
           }
         },
         errorBuilder: (context, child, stackTrace) {
-          return const CircularProgressIndicator();
+          return CircularProgressIndicator(color: MyTheme.primaryLight);
         },
       );
     } else if (height == -1) {
@@ -34,11 +36,13 @@ class LoadImageFromNetwork extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return const CircularProgressIndicator();
+            return CircularProgressIndicator(color: MyTheme.primaryLight);
+            ;
           }
         },
         errorBuilder: (context, child, stackTrace) {
-          return const CircularProgressIndicator();
+          return CircularProgressIndicator(color: MyTheme.primaryLight);
+          ;
         },
         width: width,
       );
@@ -49,11 +53,11 @@ class LoadImageFromNetwork extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return const CircularProgressIndicator();
+            return CircularProgressIndicator(color: MyTheme.primaryLight);
           }
         },
         errorBuilder: (context, child, stackTrace) {
-          return const CircularProgressIndicator();
+          return CircularProgressIndicator(color: MyTheme.primaryLight);
         },
         height: height,
       );
@@ -64,11 +68,11 @@ class LoadImageFromNetwork extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           } else {
-            return const CircularProgressIndicator();
+            return CircularProgressIndicator(color: MyTheme.primaryLight);
           }
         },
         errorBuilder: (context, child, stackTrace) {
-          return const CircularProgressIndicator();
+          return CircularProgressIndicator(color: MyTheme.primaryLight);
         },
         height: height,
         width: width,
