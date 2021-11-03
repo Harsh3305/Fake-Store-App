@@ -4,29 +4,23 @@ import 'package:fake_store/widgets/product_display.dart';
 import 'package:flutter/material.dart';
 
 class ListViewOfProducts extends StatefulWidget {
-  const ListViewOfProducts({Key? key, required this.productList})
+  const ListViewOfProducts(
+      {Key? key, required this.productList, required this.isListView})
       : super(key: key);
   final List<Product> productList;
+  final bool isListView;
   @override
-  State<ListViewOfProducts> createState() =>
-      _ListViewOfProductsState(productList);
+  State<ListViewOfProducts> createState() => _ListViewOfProductsState(
+      productList: productList, isListView: isListView);
 }
 
 class _ListViewOfProductsState extends State<ListViewOfProducts> {
   final List<Product> productList;
+  final isListView;
   Widget visibleWidget = const CircularProgressIndicator();
 
-  _ListViewOfProductsState(this.productList);
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   var futureList = FetchData.fetchAllProducts();
-  //   futureList.whenComplete(() {
-  //     setState(() {
-  //       futureList.then((value) => productList.addAll(value));
-  //     });
-  //   });
-  // }
+  _ListViewOfProductsState(
+      {required this.productList, required this.isListView});
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +39,21 @@ class _ListViewOfProductsState extends State<ListViewOfProducts> {
           },
           itemCount: productList.length,
         );
+
+        if (isListView) {
+          visibleWidget = ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ProductDisplay(
+                  product: productList[index],
+                ),
+              );
+            },
+            itemCount: productList.length,
+          );
+        }
       });
     } else {
       setState(() {

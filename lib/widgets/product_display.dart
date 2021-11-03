@@ -21,16 +21,6 @@ class _ProductDisplayState extends State<ProductDisplay> {
     final double price = widget.product.price;
     final String image = widget.product.image;
     return InkWell(
-      // onHover: (onHover) {
-      //   print(onHover);
-      //   if (onHover) {
-      //     setState(() {
-      //       _backgroundColor = MyTheme.primaryLight;
-      //     });
-      //   } else {
-      //     _backgroundColor = Colors.white;
-      //   }
-      // },
       onTap: () {
         Navigator.push(
             context,

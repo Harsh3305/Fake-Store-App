@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fake_store/models/cart.dart';
 import 'package:fake_store/models/category.dart';
 import 'package:http/http.dart' as http;
 import 'package:fake_store/models/product.dart';
@@ -39,6 +40,16 @@ class FetchDataFromInternet {
     var jsonProducts = json.decode(response.body);
     var categories =
         jsonProducts.map<Product>((json) => Product.fromJson(json)).toList();
+    return categories;
+  }
+
+  static Future<Cart> fetchCart(int id) async {
+    String url = baseUrl + "carts/$id";
+    var response = await http.get(Uri.parse(url));
+    var jsonCategory = json.decode(response.body);
+    // var categories =
+    //     jsonProducts.map<Cart>((json) => Cart.fromJson(json)).toList();
+    var categories = Cart.fromJson(jsonCategory);
     return categories;
   }
 }

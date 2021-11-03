@@ -1,6 +1,6 @@
+import 'package:fake_store/pages/cart_page.dart';
 import 'package:fake_store/pages/home_page.dart';
 import 'package:fake_store/pages/settings_page.dart';
-import 'package:fake_store/widgets/list_view_of_product.dart';
 import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,10 @@ class _HomeState extends State<Home> {
               Icons.add_shopping_cart,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const CartPage()));
+            },
           )
         ],
       ),

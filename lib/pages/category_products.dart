@@ -37,7 +37,11 @@ class _CategoryProductsState extends State<CategoryProducts> {
         title: Text(category),
         centerTitle: true,
       ),
-      body: Center(child: ListViewOfProducts(productList: listOfProduct)),
+      body: Center(
+          child: ListViewOfProducts(
+        productList: listOfProduct,
+        isListView: false,
+      )),
     ));
   }
 }

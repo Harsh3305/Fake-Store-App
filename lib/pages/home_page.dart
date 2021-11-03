@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: ListViewOfProducts(productList: productList));
+    return Center(
+        child: ListViewOfProducts(productList: productList, isListView: false));
   }
 }
