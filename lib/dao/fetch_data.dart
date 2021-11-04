@@ -7,7 +7,6 @@ import 'fetch_data_from_network/fetch_data_from_internet.dart';
 
 class FetchData {
   static const int id = 5;
-  static Map<String, Object> _cacheMap = {};
   static Future<List<Product>> fetchAllProducts() async {
     String key = "fetchAllProducts";
     Object? cacheStoreage = FetchDataFromCache.getFromCache(key);
@@ -23,7 +22,7 @@ class FetchData {
   }
 
   static Future<Product> fetchSingleProduct(int index) async {
-    String key = "fetchSingleProduct";
+    String key = "fetchSingleProduct$index";
     Object? cacheStoreage = FetchDataFromCache.getFromCache(key);
 
     if (cacheStoreage == null) {
@@ -51,7 +50,7 @@ class FetchData {
   }
 
   static Future<List<Product>> fetchProductsByCategory(String category) async {
-    String key = "fetchProductsByCategory";
+    String key = "fetchProductsByCategory$category";
     Object? cacheStoreage = FetchDataFromCache.getFromCache(key);
 
     if (cacheStoreage == null) {
