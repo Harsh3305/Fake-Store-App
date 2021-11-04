@@ -12,17 +12,13 @@ class SplashScreenComponent extends StatelessWidget {
         color: const Color.fromRGBO(128, 44, 110, 1),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            LoadImageFromNetwork(
-              urlOfImage: "https://fakestoreapi.com/icons/logo.png",
-              height: -1,
-              width: -1,
-            ),
-            CircularProgressIndicator(
+          children: [
+            Image.asset("assets/images/logo.png"),
+            const CircularProgressIndicator(
               color: Colors.white,
             ),
-            Padding(padding: EdgeInsets.only(bottom: 30.0)),
-            Text("Fake Store",
+            const Padding(padding: EdgeInsets.only(bottom: 30.0)),
+            const Text("Fake Store",
                 style: TextStyle(color: Colors.white, fontSize: 50)),
           ],
         ),
