@@ -75,4 +75,11 @@ class FetchData {
       return FetchDataFromCache.getFromCache(key) as Future<Cart>;
     }
   }
+
+  static void refreshCache() {
+    FetchDataFromCache.refreshCache();
+    fetchAllProducts();
+    fetchCategories();
+    fetchCart();
+  }
 }
