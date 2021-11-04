@@ -1,3 +1,4 @@
+import 'package:fake_store/dao/fetch_data.dart';
 import 'package:fake_store/home.dart';
 import 'package:fake_store/pages/login_page.dart';
 import 'package:fake_store/pages/sign_up_page.dart';
@@ -10,8 +11,19 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    FetchData.refreshCache();
+  }
 
   @override
   Widget build(BuildContext context) {
