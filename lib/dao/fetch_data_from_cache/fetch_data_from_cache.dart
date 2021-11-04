@@ -11,4 +11,8 @@ class FetchDataFromCache {
       return null;
     }
   }
+
+  static void refreshCache() {
+    _cacheMap = {};
+  }
 }
