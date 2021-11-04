@@ -17,21 +17,13 @@ class ProductPage extends StatelessWidget {
     final String image = product.image;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: MyTheme.primaryLight,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.centerLeft,
-              color: MyTheme.primaryLight,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             Hero(
                 tag: id,
                 child: LoadImageFromNetwork(
