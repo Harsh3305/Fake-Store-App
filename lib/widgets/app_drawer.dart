@@ -1,4 +1,5 @@
 import 'package:fake_store/pages/cart_page.dart';
+import 'package:fake_store/pages/feedback_page.dart';
 import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,12 @@ class AppDrawer extends StatelessWidget {
                   Padding(padding: EdgeInsets.only(left: 20)),
                   Text('Feedback')
                 ]),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FeedbackPage()));
+            },
           ),
           ListTile(
             title: Row(
