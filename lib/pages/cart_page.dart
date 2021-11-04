@@ -1,5 +1,6 @@
 import 'package:fake_store/dao/fetch_data.dart';
 import 'package:fake_store/models/cart.dart';
+import 'package:fake_store/models/cart_product.dart';
 import 'package:fake_store/models/product.dart';
 import 'package:fake_store/widgets/list_view_of_product.dart';
 import 'package:fake_store/widgets/my_theme.dart';
@@ -14,7 +15,8 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List<Product> listOfCartProduct = [];
+  List<Product> listOfProduct = [];
+  List<CartProduct> listOfCartproduct = [];
   @override
   void initState() {
     super.initState();
@@ -23,10 +25,15 @@ class _CartPageState extends State<CartPage> {
     futureCartList.whenComplete(() {
       futureCartList.then((value) {
         value.products.forEach((element) {
+          setState(() {
+            listOfCartproduct.add(element);
+          });
           var futureCartProduct = element.convertToProduct();
           futureCartProduct.whenComplete(() {
             setState(() {
-              futureCartProduct.then((value) => listOfCartProduct.add(value));
+              futureCartProduct.then((value) {
+                listOfProduct.add(value);
+              });
             });
           });
         });
@@ -36,26 +43,68 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    double amount = _calculatePriceOfProducs();
     Widget mainBody = CircularProgressIndicator(
       color: MyTheme.primaryLight,
     );
-    if (listOfCartProduct.isNotEmpty) {
+    if (listOfProduct.isNotEmpty) {
       mainBody = ListViewOfProducts(
-        productList: listOfCartProduct,
+        productList: listOfProduct,
         isListView: true,
       );
-    }
-    int numberOfItems = 0;
-    if (listOfCartProduct.isNotEmpty) {
-      numberOfItems = listOfCartProduct.length;
+      if (listOfProduct.isNotEmpty) {
+        mainBody = Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            mainBody,
+            Container(
+              color: MyTheme.primaryLight,
+              child: TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.money_rounded, color: Colors.white),
+                      Text(
+                        "Proceed to Pay " +
+                            String.fromCharCodes(Runes('\u0024')) +
+                            "$amount",
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )),
+            )
+          ],
+        );
+      }
     }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyTheme.primaryLight,
-        title: Text("My Cart $numberOfItems"),
+        title: Text(
+            "My Cart: " + String.fromCharCodes(Runes('\u0024')) + "$amount"),
         centerTitle: true,
       ),
       body: Center(child: mainBody),
     );
+  }
+
+  double _calculatePriceOfProducs() {
+    if (listOfCartproduct.isEmpty) {
+      return 0.0;
+    } else {
+      double amount = 0;
+      for (int i = 0; i < listOfProduct.length; i++) {
+        CartProduct cartproduct = listOfCartproduct[i];
+        int quantity = cartproduct.quantity;
+        Product currentProduct = listOfProduct[i];
+        double priceOfSingleProduct = currentProduct.price;
+
+        amount += priceOfSingleProduct * quantity;
+      }
+
+      return amount;
+    }
   }
 }
