@@ -33,7 +33,7 @@ class _ProductDisplayState extends State<ProductDisplay> {
           // color: _backgroundColor,
           decoration: BoxDecoration(boxShadow: const <BoxShadow>[
             BoxShadow(
-                color: Colors.black54,
+                color: Colors.deepPurpleAccent,
                 blurRadius: 10.0,
                 offset: Offset(0.0, 0.75))
           ], color: _backgroundColor),
