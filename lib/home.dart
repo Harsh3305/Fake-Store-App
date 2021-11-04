@@ -5,6 +5,7 @@ import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/categories_page.dart';
+import 'widgets/app_drawer.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -45,6 +46,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: _selectedWidget,
+      drawer: const AppDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
