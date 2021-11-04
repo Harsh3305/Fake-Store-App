@@ -1,7 +1,8 @@
 import 'package:fake_store/home.dart';
+import 'package:fake_store/pages/login_page.dart';
+import 'package:fake_store/pages/sign_up_page.dart';
 import 'package:fake_store/pages/splash_screen.dart';
 import 'package:fake_store/widgets/my_theme.dart';
-import 'package:fake_store/widgets/search_bar.dart';
 import 'package:fake_store/widgets/splash_screen_component.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       color: MyTheme.primaryLight,
       home: const SplashScreen(
         duration: 3,
-        nextScreen: Home(),
+        nextScreen: LoginPage(),
         splashScreen: SplashScreenComponent(),
       ),
     );
