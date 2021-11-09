@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:fake_store/models/product.dart';
 
 class FetchDataFromInternet {
-  static const String baseUrl = "https://hrv-store.azurewebsites.net/api/";
+  static const String baseUrl = "https://hrv-store-api.azurewebsites.net/api/";
   static Future<List<Product>> fetchAllProducts() async {
     String url = baseUrl + "products";
 
