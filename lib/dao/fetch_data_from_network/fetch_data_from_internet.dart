@@ -47,7 +47,7 @@ class FetchDataFromInternet {
   }
 
   static Future<Cart> fetchCart(String id) async {
-    String url = baseUrl + "carts/$id";
+    String url = baseUrl + "carts/getCart/$id";
     var response = await http.get(Uri.parse(url));
     var jsonCategory = json.decode(response.body);
     // var categories =

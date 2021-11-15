@@ -1,13 +1,11 @@
 import 'package:fake_store/models/cart_product.dart';
 
 class Cart {
-  final int id;
-  final int userID;
+  final String userID;
   final String date;
   final List<CartProduct> products;
 
   Cart({
-    required this.id,
     required this.userID,
     required this.date,
     required this.products,
@@ -19,7 +17,6 @@ class Cart {
         .map<CartProduct>((json) => CartProduct.fromJson(json))
         .toList();
     return Cart(
-        id: dynamicList["id"],
         userID: dynamicList["userId"],
         date: dynamicList["date"],
         products: categories);
