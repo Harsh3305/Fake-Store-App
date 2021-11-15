@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:fake_store/models/cart.dart';
 import 'package:fake_store/models/category.dart';
+import 'package:fake_store/models/user/user.dart';
+import 'package:fake_store/models/user_password.dart';
 import 'package:http/http.dart' as http;
 import 'package:fake_store/models/product.dart';
 
@@ -51,5 +54,21 @@ class FetchDataFromInternet {
     //     jsonProducts.map<Cart>((json) => Cart.fromJson(json)).toList();
     var categories = Cart.fromJson(jsonCategory);
     return categories;
+  }
+
+  static Future<User> signUp(UserPassword userPassword) async {
+    var url = "${baseUrl}user/addUser";
+    var response = await http.post(Uri.parse(url), body: userPassword.toJson());
+    var jsonProducts = json.decode(response.body);
+    var user = User.fromJson(jsonProducts);
+    return user;
+  }
+
+  static Future<User> login(UserPassword userPassword) async {
+    var url = "${baseUrl}user/logInUser";
+    var response = await http.post(Uri.parse(url), body: userPassword.toJson());
+    var jsonProducts = json.decode(response.body);
+    var user = User.fromJson(jsonProducts);
+    return user;
   }
 }

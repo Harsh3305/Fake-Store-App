@@ -1,6 +1,8 @@
 import 'package:fake_store/models/cart.dart';
 import 'package:fake_store/models/category.dart';
 import 'package:fake_store/models/product.dart';
+import 'package:fake_store/models/user/user.dart';
+import 'package:fake_store/models/user_password.dart';
 
 import 'fetch_data_from_cache/fetch_data_from_cache.dart';
 import 'fetch_data_from_network/fetch_data_from_internet.dart';
@@ -81,5 +83,13 @@ class FetchData {
     fetchAllProducts();
     fetchCategories();
     fetchCart();
+  }
+
+  static Future<User> signUp(UserPassword user) async {
+    return FetchDataFromInternet.signUp(user);
+  }
+
+  static Future<User> login(UserPassword userPassword) async {
+    return FetchDataFromInternet.login(userPassword);
   }
 }

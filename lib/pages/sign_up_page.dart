@@ -1,3 +1,6 @@
+import 'package:fake_store/dao/fetch_data.dart';
+import 'package:fake_store/models/user/user.dart';
+import 'package:fake_store/models/user_password.dart';
 import 'package:fake_store/pages/login_page.dart';
 import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,8 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   String _userName = "";
+  String _email = "";
+  String _password = "";
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -81,6 +86,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
+                onChanged: (email) {
+                  setState(() {
+                    _email = email;
+                  });
+                },
               ),
               const SizedBox(
                 height: 20.0,
@@ -94,6 +104,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
+                onChanged: (password) {
+                  setState(() {
+                    _password = password;
+                  });
+                },
               ),
               const SizedBox(
                 height: 30.0,
@@ -109,9 +124,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           backgroundColor:
                               MaterialStateProperty.all(MyTheme.primaryLight)),
                       onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Home()));
+                        // Navigator.pop(context);
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) => Home()));
+
+                        Future<User> result =
+                            FetchData.signUp(UserPassword(_email, _password));
+                        result.whenComplete(
+                            () => result.then((value) => print(value)));
                       },
                     ),
                   ],

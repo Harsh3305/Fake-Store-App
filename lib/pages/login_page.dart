@@ -1,12 +1,22 @@
+import 'package:fake_store/dao/fetch_data.dart';
+import 'package:fake_store/models/user/user.dart';
+import 'package:fake_store/models/user_password.dart';
 import 'package:fake_store/pages/sign_up_page.dart';
 import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String _email = "";
+  String _password = "";
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -51,6 +61,11 @@ class LoginPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
+                onChanged: (email) {
+                  setState(() {
+                    _email = email;
+                  });
+                },
               ),
               const SizedBox(
                 height: 20.0,
@@ -64,6 +79,11 @@ class LoginPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
+                onChanged: (password) {
+                  setState(() {
+                    _password = password;
+                  });
+                },
               ),
               const SizedBox(
                 height: 30.0,
@@ -78,14 +98,22 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(fontSize: 12.0, color: Colors.indigo),
                     ),
                     ElevatedButton(
-                      child: Text('Login'),
+                      child: const Text('Login'),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(MyTheme.primaryLight)),
                       onPressed: () {
-                        Navigator.pop(context);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Home()));
+                        UserPassword userPassword =
+                            UserPassword(_email, _password);
+                        Future<User> futureUser = FetchData.login(userPassword);
+
+                        futureUser.whenComplete(() => futureUser.then((value) {
+                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const Home()));
+                            }));
                       },
                     ),
                   ],
