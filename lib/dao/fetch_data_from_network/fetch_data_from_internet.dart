@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:fake_store/models/cart.dart';
 import 'package:fake_store/models/category.dart';
+import 'package:fake_store/models/user/address.dart';
+import 'package:fake_store/models/user/name.dart';
 import 'package:fake_store/models/user/user.dart';
 import 'package:fake_store/models/user_password.dart';
 import 'package:http/http.dart' as http;
@@ -68,7 +70,12 @@ class FetchDataFromInternet {
     var url = "${baseUrl}user/logInUser";
     var response = await http.post(Uri.parse(url), body: userPassword.toJson());
     var jsonProducts = json.decode(response.body);
-    var user = User.fromJson(jsonProducts);
-    return user;
+    try {
+      var user = User.fromJson(jsonProducts);
+      return user;
+    } catch (e) {
+      var user = User(Address("", ""), "-1", "", "", Name("", ""), "", "", "");
+      return user;
+    }
   }
 }

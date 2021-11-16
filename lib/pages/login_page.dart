@@ -4,7 +4,6 @@ import 'package:fake_store/models/user_password.dart';
 import 'package:fake_store/pages/sign_up_page.dart';
 import 'package:fake_store/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
-
 import '../home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,6 +16,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String _email = "";
   String _password = "";
+  bool isError = false;
+  bool _isloading = false;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -50,6 +51,11 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
+              if (isError)
+                const Text(
+                  "Please check your Email ID and Password",
+                  style: TextStyle(color: Colors.red, fontSize: 20),
+                ),
               const SizedBox(
                 height: 30.0,
               ),
@@ -97,22 +103,37 @@ class _LoginPageState extends State<LoginPage> {
                       'Forget password?',
                       style: TextStyle(fontSize: 12.0, color: Colors.indigo),
                     ),
+                    if (_isloading) const CircularProgressIndicator(),
                     ElevatedButton(
                       child: const Text('Login'),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(MyTheme.primaryLight)),
                       onPressed: () {
+                        setState(() {
+                          _isloading = true;
+                        });
                         UserPassword userPassword =
                             UserPassword(_email, _password);
                         Future<User> futureUser = FetchData.login(userPassword);
-
+                        setState(() {
+                          isError = false;
+                        });
                         futureUser.whenComplete(() => futureUser.then((value) {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Home()));
+                              setState(() {
+                                _isloading = false;
+                              });
+                              if (value.id == "-1") {
+                                setState(() {
+                                  isError = true;
+                                });
+                              } else {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Home()));
+                              }
                             }));
                       },
                     ),
